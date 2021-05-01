@@ -103,8 +103,13 @@ public class PainelDoJogo  extends JPanel implements ActionListener{
 		}
 	}
 	
-	public void checarPonto() {
-		
+	public void checarMaca() {
+		if ((x[0] == macaX) && (y[0] == macaY)) {
+			partesDoCorpo++;
+			macasComidas++;
+		novaMaca();
+		}
+	
 	}
 	
 	public void checarColisoes() {
@@ -147,7 +152,7 @@ public class PainelDoJogo  extends JPanel implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if(jogando) {
 			movimento();
-			checarPonto();
+			checarMaca();
 			checarColisoes();
 		}
 		repaint();
@@ -183,15 +188,6 @@ public class PainelDoJogo  extends JPanel implements ActionListener{
 						direcao = 'B';
 					}
 				break;
-				
-				
-				
-				
-				
-				
-				
-				
-				
 			}
 			
 		}
