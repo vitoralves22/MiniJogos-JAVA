@@ -10,19 +10,19 @@ public class PainelDoJogo  extends JPanel implements ActionListener{
 
 	static final int LARGURA_TELA = 600;
 	static final int ALTURA_TELA = 600;
-	static final int TAMANHO_OBJETO = 25;
-	static final int QNTD_OBJETOS_TELA = ((LARGURA_TELA*ALTURA_TELA)/TAMANHO_OBJETO);                       
+	static final int TAMANHO_PIXEL = 25;
+	static final int QNTD_PIXELS_TELA = ((LARGURA_TELA*ALTURA_TELA)/TAMANHO_PIXEL);                       
 	static final int DELAY = 75;
 	
-	final int x[] = new int [QNTD_OBJETOS_TELA];
-	final int y[] = new int [QNTD_OBJETOS_TELA];
+	final int x[] = new int [QNTD_PIXELS_TELA];
+	final int y[] = new int [QNTD_PIXELS_TELA];
 	
 	int partesDoCorpo = 6;
 	int macasComidas;
 	int macaX;
 	int macaY;
-	char direcao = 'R';
-	boolean correndo = false;
+	char direcao = 'D';
+	boolean jogando = false;
 	
 	Timer timer;
 	Random random;
@@ -39,7 +39,7 @@ public class PainelDoJogo  extends JPanel implements ActionListener{
 	
 	public void comecarJogo() {
 		novaMaca();
-		correndo = true;
+		jogando = true;
 		timer = new Timer(DELAY, this);
 		timer.start();
 	}
@@ -50,25 +50,60 @@ public class PainelDoJogo  extends JPanel implements ActionListener{
 	}
 	
 	public void Desenho(Graphics g) {
-		for(int i = 0; i < ALTURA_TELA/TAMANHO_OBJETO; i++) {
-			g.drawLine(i*TAMANHO_OBJETO, 0, i*TAMANHO_OBJETO, ALTURA_TELA);
-			g.drawLine(0, i*TAMANHO_OBJETO, LARGURA_TELA, i*TAMANHO_OBJETO);
+		for(int i = 0; i < ALTURA_TELA/TAMANHO_PIXEL; i++) {
+			g.drawLine(i*TAMANHO_PIXEL, 0, i*TAMANHO_PIXEL, ALTURA_TELA);
+			g.drawLine(0, i*TAMANHO_PIXEL, LARGURA_TELA, i*TAMANHO_PIXEL);
 		}
 		
 		g.setColor(Color.red);
-		g.fillOval(macaX, macaY, TAMANHO_OBJETO, TAMANHO_OBJETO);
+		g.fillOval(macaX, macaY, TAMANHO_PIXEL, TAMANHO_PIXEL);
+		
+		
+		for(int i = 0; i < partesDoCorpo; i++) {
+			if (i == 0) {
+				g.setColor(Color.green);
+				g.fillRect(x[i], y[i], TAMANHO_PIXEL, TAMANHO_PIXEL);
+			}
+			else {
+				g.setColor(new Color(45,180,0));
+				g.fillRect(x[i], y[i], TAMANHO_PIXEL, TAMANHO_PIXEL);
+			}
+		}
 	}
 	
 	public void novaMaca() {
-		
-		
+		macaX = random.nextInt((int)(LARGURA_TELA/TAMANHO_PIXEL))*TAMANHO_PIXEL;
+		macaY = random.nextInt((int)(ALTURA_TELA/TAMANHO_PIXEL))*TAMANHO_PIXEL;
 	}
 	
-	public void Movimento() {
+	public void movimento() {
 		
+		for(int i = partesDoCorpo; i > 0; i--) {
+			x[i] = x [i-1];
+			y[i] = y [i-1];
+		}
+		
+		switch(direcao){
+		case 'C':
+			y[0] = y[0] - TAMANHO_PIXEL;
+		break;
+		
+		case 'B':
+			y[0] = y[0] + TAMANHO_PIXEL;
+		break;
+		
+		case 'E':
+			x[0] = x[0] - TAMANHO_PIXEL;
+		break;
+		
+		case 'D':
+			x[0] = x[0] + TAMANHO_PIXEL;
+		break;
+		
+		}
 	}
 	
-	public void ChecarPonto() {
+	public void checarPonto() {
 		
 	}
 	
@@ -82,7 +117,12 @@ public class PainelDoJogo  extends JPanel implements ActionListener{
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+		if(jogando) {
+			movimento();
+			checarPonto();
+			checarColisoes();
+		}
+		repaint();
 		
 	}    
 	
