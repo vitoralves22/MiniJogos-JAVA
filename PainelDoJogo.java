@@ -108,8 +108,36 @@ public class PainelDoJogo  extends JPanel implements ActionListener{
 	}
 	
 	public void checarColisoes() {
+		//Checando Colisão no Corpo
+		for(int i = partesDoCorpo; i > 0; i--) {
+			if((x[0] == x[i]) && (y[0] == y[i])) {
+				jogando = false;
+			}
+		}
 		
+		//Checando Colisão nas bordas
+		if (x[0] < 0) {
+			jogando = false;
+		}
+	
+		if (x[0] > LARGURA_TELA) {
+			jogando = false;
+		}
+		
+		if (y[0] < 0) {
+			jogando = false;
+		}
+		
+		if (y[0] > ALTURA_TELA) {
+			jogando = false;
+		}
+		
+		if(!jogando) {
+			timer.stop();
+		}
 	}
+	
+	
 	
 	public void fimDeJogo(ActionEvent g) {
 		
@@ -130,6 +158,41 @@ public class PainelDoJogo  extends JPanel implements ActionListener{
 		
 		@Override
 		public void keyPressed(KeyEvent e) {
+			switch(e.getKeyCode()) {
+			
+				case KeyEvent.VK_LEFT:
+					if(direcao != 'D') {
+						direcao = 'E';
+					}
+				break;
+				
+				case KeyEvent.VK_RIGHT:
+					if(direcao != 'E') {
+						direcao = 'D';
+					}
+				break;
+				
+				case KeyEvent.VK_UP:
+					if(direcao != 'B') {
+						direcao = 'C';
+					}
+				break;
+				
+				case KeyEvent.VK_DOWN:
+					if(direcao != 'C') {
+						direcao = 'B';
+					}
+				break;
+				
+				
+				
+				
+				
+				
+				
+				
+				
+			}
 			
 		}
 	}
