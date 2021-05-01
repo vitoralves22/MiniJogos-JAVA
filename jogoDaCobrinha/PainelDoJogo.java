@@ -27,7 +27,6 @@ public class PainelDoJogo  extends JPanel implements ActionListener{
 	Timer timer;
 	Random random;
 	
-	
 	PainelDoJogo(){
 		random = new Random();
 		this.setPreferredSize(new Dimension(LARGURA_TELA, ALTURA_TELA));
@@ -50,25 +49,32 @@ public class PainelDoJogo  extends JPanel implements ActionListener{
 	}
 	
 	public void Desenho(Graphics g) {
-		for(int i = 0; i < ALTURA_TELA/TAMANHO_PIXEL; i++) {
-			g.drawLine(i*TAMANHO_PIXEL, 0, i*TAMANHO_PIXEL, ALTURA_TELA);
-			g.drawLine(0, i*TAMANHO_PIXEL, LARGURA_TELA, i*TAMANHO_PIXEL);
+		if(jogando) {
+			for(int i = 0; i < ALTURA_TELA/TAMANHO_PIXEL; i++) {
+				g.drawLine(i*TAMANHO_PIXEL, 0, i*TAMANHO_PIXEL, ALTURA_TELA);
+				g.drawLine(0, i*TAMANHO_PIXEL, LARGURA_TELA, i*TAMANHO_PIXEL);
+			}
+			
+			g.setColor(Color.red);
+			g.fillOval(macaX, macaY, TAMANHO_PIXEL, TAMANHO_PIXEL);
+			
+			
+			for(int i = 0; i < partesDoCorpo; i++) {
+				if (i == 0) {
+					g.setColor(Color.green);
+					g.fillRect(x[i], y[i], TAMANHO_PIXEL, TAMANHO_PIXEL);
+				}
+				else {
+					g.setColor(new Color(45,180,0));
+					g.fillRect(x[i], y[i], TAMANHO_PIXEL, TAMANHO_PIXEL);
+				}
+			}
+		}
+		else {
+			fimDeJogo(g);
 		}
 		
-		g.setColor(Color.red);
-		g.fillOval(macaX, macaY, TAMANHO_PIXEL, TAMANHO_PIXEL);
 		
-		
-		for(int i = 0; i < partesDoCorpo; i++) {
-			if (i == 0) {
-				g.setColor(Color.green);
-				g.fillRect(x[i], y[i], TAMANHO_PIXEL, TAMANHO_PIXEL);
-			}
-			else {
-				g.setColor(new Color(45,180,0));
-				g.fillRect(x[i], y[i], TAMANHO_PIXEL, TAMANHO_PIXEL);
-			}
-		}
 	}
 	
 	public void novaMaca() {
@@ -142,10 +148,11 @@ public class PainelDoJogo  extends JPanel implements ActionListener{
 		}
 	}
 	
-	
-	
-	public void fimDeJogo(ActionEvent g) {
-		
+	public void fimDeJogo(Graphics g) {
+		g.setColor(Color.red);
+		g.setFont(new Font("Ink Free", Font.BOLD, 75));
+		FontMetrics metrics = getFontMetrics(g.getFont());
+		g.drawString("Game Over", (LARGURA_TELA - metrics.stringWidth("Game Over"))/2, ALTURA_TELA/2);
 	}
 	
 	@Override
