@@ -33,6 +33,7 @@ public class CobraPanel  extends JPanel implements ActionListener{
 		this.setBackground(Color.DARK_GRAY);
 		this.setFocusable(true);
 		this.addKeyListener(new MyKeyAdapter());
+		
 		comecarJogo();
 	}
 	
@@ -82,9 +83,9 @@ public class CobraPanel  extends JPanel implements ActionListener{
 	
 	public void placar(Graphics g) {
 		g.setColor(Color.GREEN);
-		g.setFont(new Font("Ink Free", Font.BOLD, 15));
+		g.setFont(new Font("TimesRoman", Font.PLAIN, 15));
 		FontMetrics metrics = getFontMetrics(g.getFont());
-		g.drawString("PONTUA√á√ÉO: " + macasComidas, (LARGURA_TELA - metrics.stringWidth("PONTUA√á√ÉO: " + macasComidas))/2, g.getFont().getSize());
+		g.drawString("PONTU«√O: " + macasComidas, (LARGURA_TELA - metrics.stringWidth("PONTUA«√O: " + macasComidas))/2, g.getFont().getSize());
 	}
 	
 	public void novaMaca() {

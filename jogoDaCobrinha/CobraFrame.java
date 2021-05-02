@@ -14,8 +14,7 @@ public class CobraFrame extends JFrame {
 			this.setVisible(true);
 			this.setLocationRelativeTo(null);
 			ImageIcon icone = new ImageIcon("cobraIcon.png");
-			this.setIconImage(icone.getImage());
+			this.setIconImage(icone.getImage());			
 		}
-
 }
 
