@@ -1,25 +1,21 @@
 package jogoDaCobrinha;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
-public class FrameDoJogo extends JFrame {
+public class CobraFrame extends JFrame {
 	
-		FrameDoJogo(){
-			PainelDoJogo painel = new PainelDoJogo();
-			this.add(painel);
+		CobraFrame(){
+			this.add(new CobraPanel());
 			this.setTitle("Cobra");
 			this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			this.setResizable(false);
 			this.pack();
 			this.setVisible(true);
 			this.setLocationRelativeTo(null);
+			ImageIcon icone = new ImageIcon("cobraIcon.png");
+			this.setIconImage(icone.getImage());
 		}
-
-
-
-
-
-
 
 }
 

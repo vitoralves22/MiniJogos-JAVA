@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.util.Random;
 import javax.swing.JPanel;
 
-public class PainelDoJogo  extends JPanel implements ActionListener{
+public class CobraPanel  extends JPanel implements ActionListener{
 
 	static final int LARGURA_TELA = 600;
 	static final int ALTURA_TELA = 600;
@@ -17,7 +17,7 @@ public class PainelDoJogo  extends JPanel implements ActionListener{
 	final int x[] = new int [QNTD_PIXELS_TELA];
 	final int y[] = new int [QNTD_PIXELS_TELA];
 	
-	int partesDoCorpo = 6;
+	int partesDoCorpo = 5;
 	int macasComidas;
 	int macaX;
 	int macaY;
@@ -27,10 +27,10 @@ public class PainelDoJogo  extends JPanel implements ActionListener{
 	Timer timer;
 	Random random;
 	
-	PainelDoJogo(){
+	CobraPanel(){
 		random = new Random();
 		this.setPreferredSize(new Dimension(LARGURA_TELA, ALTURA_TELA));
-		this.setBackground(Color.black);
+		this.setBackground(Color.DARK_GRAY);
 		this.setFocusable(true);
 		this.addKeyListener(new MyKeyAdapter());
 		comecarJogo();
@@ -81,7 +81,7 @@ public class PainelDoJogo  extends JPanel implements ActionListener{
 	}
 	
 	public void placar(Graphics g) {
-		g.setColor(Color.blue);
+		g.setColor(Color.GREEN);
 		g.setFont(new Font("Ink Free", Font.BOLD, 15));
 		FontMetrics metrics = getFontMetrics(g.getFont());
 		g.drawString("PONTUAÇÃO: " + macasComidas, (LARGURA_TELA - metrics.stringWidth("PONTUAÇÃO: " + macasComidas))/2, g.getFont().getSize());
@@ -206,6 +206,19 @@ public class PainelDoJogo  extends JPanel implements ActionListener{
 						direcao = 'B';
 					}
 				break;
+				
+				case KeyEvent.VK_SPACE:
+					if(timer.isRunning()) {
+						timer.stop();
+					}else if (!(timer.isRunning())) {
+						timer.start();
+					}		
+				break;
+				
+				case KeyEvent.VK_ENTER:
+				break;
+				
+				
 			}
 			
 		}
