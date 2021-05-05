@@ -44,10 +44,10 @@ public class CobraPanel  extends JPanel implements ActionListener{
 	
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		Desenho(g);
+		draw(g);
 	}
 	
-	public void Desenho(Graphics g) {
+	public void draw(Graphics g) {
 		placar(g);
 		
 		if(estadoDeJogo == 1) {
@@ -187,7 +187,7 @@ public class CobraPanel  extends JPanel implements ActionListener{
 			switch(e.getKeyCode()) {
 			
 				case KeyEvent.VK_DELETE:
-					new CobraFrame();
+				    System.exit(0);
 				break;
 				
 				case KeyEvent.VK_ENTER:
